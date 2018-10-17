@@ -66,7 +66,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            COPTD cOPTD = await db.COPTDs.FindAsync(id);
+            COPTD cOPTD = await db.COPTDs.FirstAsync(i => i.no == id);//.FindAsync(id); //取primary key
             if (cOPTD == null)
             {
                 return HttpNotFound();
