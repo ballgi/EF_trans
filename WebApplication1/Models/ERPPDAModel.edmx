@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ERPPDAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="COPTD">
+          <Key>
+            <PropertyRef Name="no" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="billNo" />
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMPANY" Type="nchar" MaxLength="16" Nullable="false" />
+          <Property Name="TA001" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="type" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="billNo" Type="nchar" MaxLength="7" Nullable="false" />
+          <Property Name="sno" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="pno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="batchNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="COP_num" Type="nvarchar" MaxLength="50" />
+          <Property Name="isfail" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="20" />
+          <Property Name="update_date" Type="datetime" />
+          <Property Name="update_user" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="ERPPDAModelStoreContainer">
+          <EntitySet Name="COPTD" EntityType="Self.COPTD" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ERPPDAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="COPTD">
+          <Key>
+            <PropertyRef Name="no" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="billNo" />
+            <PropertyRef Name="sno" />
+          </Key>
+          <Property Name="no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMPANY" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TA001" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="billNo" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="sno" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="pno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="batchNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COP_num" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isfail" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="update_date" Type="DateTime" Precision="3" />
+          <Property Name="update_user" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ERPPDAContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="COPTDs" EntityType="Self.COPTD" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ERPPDAModelStoreContainer" CdmEntityContainer="ERPPDAContext">
+          <EntitySetMapping Name="COPTDs">
+            <EntityTypeMapping TypeName="ERPPDAModel.COPTD">
+              <MappingFragment StoreEntitySet="COPTD">
+                <ScalarProperty Name="no" ColumnName="no" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="TA001" ColumnName="TA001" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="billNo" ColumnName="billNo" />
+                <ScalarProperty Name="sno" ColumnName="sno" />
+                <ScalarProperty Name="pno" ColumnName="pno" />
+                <ScalarProperty Name="batchNo" ColumnName="batchNo" />
+                <ScalarProperty Name="COP_num" ColumnName="COP_num" />
+                <ScalarProperty Name="isfail" ColumnName="isfail" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="update_date" ColumnName="update_date" />
+                <ScalarProperty Name="update_user" ColumnName="update_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
