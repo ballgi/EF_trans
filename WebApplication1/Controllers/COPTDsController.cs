@@ -94,8 +94,7 @@ namespace WebApplication1.Controllers
                             //var test = context.PDA_Log.Where(i => i.sno == 1).FirstOrDefault();
                             //test.COMPANY = "XaaX"; 
                             #endregion
-                            context.COPTDs.Attach(cOPTD);
-                            cOPTD.update_user = "abc";
+
                             //            //db.Entry(cOPTD).State = EntityState.Unchanged;
                             //var uCOPTD = context.COPTDs.Where(i => i.no == cOPTD.no).FirstOrDefault();
                             //            //uCOPTD.create_date = DateTime.Now;
@@ -103,10 +102,14 @@ namespace WebApplication1.Controllers
                             //            //db.COPTDs.so
                             //uCOPTD.user = "abc";
 
+                            #region EntityFramework update一部分
+                            //context.COPTDs.Attach(cOPTD);
+                            cOPTD.update_user = "abcxx";
                             context.Entry(cOPTD).State = EntityState.Modified;
                             context.Entry(cOPTD).Property("create_date").IsModified = false;
                             context.Entry(cOPTD).Property("user").IsModified = false;
-                            context.Entry(cOPTD).Property("update_date").IsModified = false;
+                            context.Entry(cOPTD).Property("update_date").IsModified = false; 
+                            #endregion
 
 
                             #region store procedure
