@@ -89,15 +89,23 @@ namespace WebApplication1.Controllers
                     {
                         if (ModelState.IsValid)
                         {
-                            var test = context.PDA_Log.Where(i => i.sno ==1).FirstOrDefault();
-                            test.COMPANY = "XaaX";
 
+                            #region 同時update 兩個table
+                            //var test = context.PDA_Log.Where(i => i.sno == 1).FirstOrDefault();
+                            //test.COMPANY = "XaaX"; 
+                            #endregion
+                            
                             //            //db.Entry(cOPTD).State = EntityState.Unchanged;
                             var uCOPTD = context.COPTDs.Where(i => i.no == cOPTD.no).FirstOrDefault();
                             //            //uCOPTD.create_date = DateTime.Now;
                             //            //uCOPTD.update_date = DateTime.Now;
                             //            //db.COPTDs.so
-                            uCOPTD.update_user = "xaax";
+                            uCOPTD.user = "xxx";
+
+
+                            #region store procedure
+                            //int ii =context.spSaveCOPTD(cOPTD.no, "xxx"); 
+                            #endregion
 
                             //db.Entry(cOPTD).State = EntityState.Modified;
                             await context.SaveChangesAsync();
