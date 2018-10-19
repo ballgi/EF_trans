@@ -14,6 +14,7 @@ namespace WebApplication1.Models
     
     public partial class PDA_Log
     {
+        public int sno { get; set; }
         public string text { get; set; }
         public string table { get; set; }
         public string user { get; set; }

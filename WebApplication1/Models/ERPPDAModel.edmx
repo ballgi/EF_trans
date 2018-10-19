@@ -27,18 +27,15 @@
           <Property Name="update_date" Type="datetime" />
           <Property Name="update_user" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ERPPDA.dbo.PDA_Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PDA_Log">
           <Key>
-            <PropertyRef Name="user" />
-            <PropertyRef Name="COMPANY" />
-            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="sno" />
           </Key>
+          <Property Name="sno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="text" Type="nvarchar" MaxLength="1000" />
           <Property Name="table" Type="nvarchar" MaxLength="50" />
           <Property Name="user" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="COMPANY" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="COMPANY" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
         <Function Name="spSaveCOPTD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -47,15 +44,7 @@ warning 6002: The table/view 'ERPPDA.dbo.PDA_Log' does not have a primary key de
         </Function>
         <EntityContainer Name="ERPPDAModelStoreContainer">
           <EntitySet Name="COPTD" EntityType="Self.COPTD" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PDA_Log" EntityType="Self.PDA_Log" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [PDA_Log].[text] AS [text], 
-    [PDA_Log].[table] AS [table], 
-    [PDA_Log].[user] AS [user], 
-    [PDA_Log].[COMPANY] AS [COMPANY], 
-    [PDA_Log].[CreateDate] AS [CreateDate]
-    FROM [dbo].[PDA_Log] AS [PDA_Log]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="PDA_Log" EntityType="Self.PDA_Log" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -93,14 +82,13 @@ warning 6002: The table/view 'ERPPDA.dbo.PDA_Log' does not have a primary key de
         </EntityContainer>
         <EntityType Name="PDA_Log">
           <Key>
-            <PropertyRef Name="user" />
-            <PropertyRef Name="COMPANY" />
-            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="sno" />
           </Key>
+          <Property Name="sno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="table" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="user" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="COMPANY" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="COMPANY" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
@@ -138,6 +126,7 @@ warning 6002: The table/view 'ERPPDA.dbo.PDA_Log' does not have a primary key de
                 <ScalarProperty Name="user" ColumnName="user" />
                 <ScalarProperty Name="table" ColumnName="table" />
                 <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="sno" ColumnName="sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

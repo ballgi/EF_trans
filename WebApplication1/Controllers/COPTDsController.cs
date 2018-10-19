@@ -89,15 +89,15 @@ namespace WebApplication1.Controllers
                     {
                         if (ModelState.IsValid)
                         {
-                            //var test = context.PDA_Log.Where(i => i.user == "abcd").FirstOrDefault();
-                            //test.COMPANY = "XX";
+                            var test = context.PDA_Log.Where(i => i.sno ==1).FirstOrDefault();
+                            test.COMPANY = "XaaX";
 
                             //            //db.Entry(cOPTD).State = EntityState.Unchanged;
                             var uCOPTD = context.COPTDs.Where(i => i.no == cOPTD.no).FirstOrDefault();
                             //            //uCOPTD.create_date = DateTime.Now;
                             //            //uCOPTD.update_date = DateTime.Now;
                             //            //db.COPTDs.so
-                            uCOPTD.update_user = "xx";
+                            uCOPTD.update_user = "xaax";
 
                             //db.Entry(cOPTD).State = EntityState.Modified;
                             await context.SaveChangesAsync();
