@@ -79,15 +79,40 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "no,COMPANY,TA001,type,billNo,sno,pno,batchNo,COP_num,isfail,create_date,user,update_date,update_user")] COPTD cOPTD)
+        public async Task<ActionResult> Edit([Bind(Include = "no,COMPANY,TA001,type,billNo,sno,pno,batchNo,COP_num,isfail,update_user")] COPTD cOPTD)
         {
-            if (ModelState.IsValid)
+            using (var context = db)
             {
-                db.Entry(cOPTD).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                using (var dbContextConnection = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (ModelState.IsValid)
+                        {
+                            //var test = context.PDA_Log.Where(i => i.user == "abcd").FirstOrDefault();
+                            //test.COMPANY = "XX";
+
+                            //            //db.Entry(cOPTD).State = EntityState.Unchanged;
+                            var uCOPTD = context.COPTDs.Where(i => i.no == cOPTD.no).FirstOrDefault();
+                            //            //uCOPTD.create_date = DateTime.Now;
+                            //            //uCOPTD.update_date = DateTime.Now;
+                            //            //db.COPTDs.so
+                            uCOPTD.update_user = "xx";
+
+                            //db.Entry(cOPTD).State = EntityState.Modified;
+                            await context.SaveChangesAsync();
+
+                            dbContextConnection.Commit();
+                            return RedirectToAction("Index");
+                        }                       
+                    }
+                    catch (Exception)
+                    {
+                        dbContextConnection.Rollback();
+                    }
+                    return View(cOPTD);
+                }
             }
-            return View(cOPTD);
         }
 
         // GET: COPTDs/Delete/5

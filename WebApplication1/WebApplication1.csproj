@@ -151,6 +151,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ERPPDAModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PDA_Log.cs">
+      <DependentUpon>ERPPDAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

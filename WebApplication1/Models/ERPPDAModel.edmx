@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ERPPDAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ERPPDAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="COPTD">
           <Key>
             <PropertyRef Name="no" />
@@ -27,11 +27,37 @@
           <Property Name="update_date" Type="datetime" />
           <Property Name="update_user" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ERPPDA.dbo.PDA_Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PDA_Log">
+          <Key>
+            <PropertyRef Name="user" />
+            <PropertyRef Name="COMPANY" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="text" Type="nvarchar" MaxLength="1000" />
+          <Property Name="table" Type="nvarchar" MaxLength="50" />
+          <Property Name="user" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="COMPANY" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Function Name="spSaveCOPTD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="user" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ERPPDAModelStoreContainer">
           <EntitySet Name="COPTD" EntityType="Self.COPTD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PDA_Log" EntityType="Self.PDA_Log" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PDA_Log].[text] AS [text], 
+    [PDA_Log].[table] AS [table], 
+    [PDA_Log].[user] AS [user], 
+    [PDA_Log].[COMPANY] AS [COMPANY], 
+    [PDA_Log].[CreateDate] AS [CreateDate]
+    FROM [dbo].[PDA_Log] AS [PDA_Log]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ERPPDAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -59,7 +85,24 @@
         </EntityType>
         <EntityContainer Name="ERPPDAContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="COPTDs" EntityType="Self.COPTD" />
+          <FunctionImport Name="spSaveCOPTD">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="PDA_Log" EntityType="ERPPDAModel.PDA_Log" />
         </EntityContainer>
+        <EntityType Name="PDA_Log">
+          <Key>
+            <PropertyRef Name="user" />
+            <PropertyRef Name="COMPANY" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="text" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="table" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COMPANY" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -83,6 +126,18 @@
                 <ScalarProperty Name="user" ColumnName="user" />
                 <ScalarProperty Name="update_date" ColumnName="update_date" />
                 <ScalarProperty Name="update_user" ColumnName="update_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spSaveCOPTD" FunctionName="ERPPDAModel.Store.spSaveCOPTD" />
+          <EntitySetMapping Name="PDA_Log">
+            <EntityTypeMapping TypeName="ERPPDAModel.PDA_Log">
+              <MappingFragment StoreEntitySet="PDA_Log">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="table" ColumnName="table" />
+                <ScalarProperty Name="text" ColumnName="text" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
